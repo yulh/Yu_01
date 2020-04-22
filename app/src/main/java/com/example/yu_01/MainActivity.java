@@ -1,6 +1,9 @@
 package com.example.yu_01;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,31 +11,105 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.yu_01.activity.DbActivity;
 import com.example.yu_01.activity.GetAndPostActivity;
+import com.example.yu_01.activity.LoginActivity;
+import com.example.yu_01.databinding.ActivityMainBinding;
+import com.example.yu_01.fragment.MainFragment;
+import com.example.yu_01.fragment.MineFragment;
 
 import org.xutils.common.Callback;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    public ImageView imageView_01;
-    public Button buttonDb;
-    public Button buttonGetAndPost;
+public class MainActivity extends AppCompatActivity {
+    private List<Fragment> fragments;
+    private int lastIndex;
+    private int state;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        imageView_01 = (ImageView) findViewById(R.id.imageView_01);
-        buttonDb = (Button) findViewById(R.id.button_01);
-        buttonDb.setOnClickListener(this);
-        buttonGetAndPost = (Button) findViewById(R.id.button_02);
-        buttonGetAndPost.setOnClickListener(this);
+        binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
+        binding.setMainActivity(this);
+        initBottomBar();
 
+
+        fragments = new ArrayList<>();
+        fragments.add(new MainFragment());
+        fragments.add(new MineFragment());
+
+        setFragmentPosition(state);
+
+        loadImage();
+    }
+
+    /**
+     * 初始化底部选择栏
+     */
+    private void initBottomBar() {
+        binding.bottomBar.setFirstChecked(state);
+        binding.bottomBar.setContainer(R.id.main_frameLayout)
+                .setTitleBeforeAndAfterColor("#CCCCCC", "#FFC107")
+                .addItem(MainFragment.class,
+                        "首页",
+                        R.mipmap.home0,
+                        R.mipmap.home)
+                .addItem(MineFragment.class,
+                        "订单",
+                        R.mipmap.hq0,
+                        R.mipmap.hq)
+                .build();
+    }
+
+    /**
+     * 展示的顶部Fragment
+     * @param position
+     */
+    private void setFragmentPosition(int position) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment currentFragment = fragments.get(position);
+        Fragment lastFragment = fragments.get(lastIndex);
+        lastIndex = position;
+        ft.replace(R.id.main_frameLayout,currentFragment);
+//        if (!currentFragment.isAdded()) {
+//            getSupportFragmentManager().beginTransaction().remove(currentFragment).commit();
+//            ft.add(R.id.main_frameLayout, currentFragment);
+//        }
+//        ft.show(currentFragment);
+//        ft.commitAllowingStateLoss();
+    }
+
+    public void onClick(View v) {
+        Log.e("111","ssss");
+        Intent intent = null;
+        switch (v.getId()) {
+            case R.id.button_01:
+                intent = new Intent(MainActivity.this, DbActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.button_02:
+                intent = new Intent(MainActivity.this, GetAndPostActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.button_03:
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    /**
+     * 加载图片
+     */
+    private void loadImage(){
         final ImageOptions imageOptions = new ImageOptions.Builder()
                 .setLoadingDrawableId(R.mipmap.ic_launcher)
                 .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
@@ -43,14 +120,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public boolean onCache(File result) {
                 Log.e("yulh-onCache", "缓冲成功" + result.getName() + "路径为" + result.getPath());
-                x.image().bind(imageView_01, result.getPath(), imageOptions);
+                x.image().bind(binding.imageView01, result.getPath(), imageOptions);
                 return true;
             }
 
             @Override
             public void onSuccess(File result) {
                 Log.e("yulh-onSuccess", "缓冲成功" + result.getName() + "路径为" + result.getPath());
-                x.image().bind(imageView_01, result.getPath(), imageOptions);
+                x.image().bind(binding.imageView01, result.getPath(), imageOptions);
             }
 
             @Override
@@ -69,19 +146,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
-    @Override
-    public void onClick(View v) {
-        Intent intent = null;
-        switch (v.getId()) {
-            case R.id.button_01:
-                intent = new Intent(MainActivity.this, DbActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.button_02:
-                intent = new Intent(MainActivity.this, GetAndPostActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
 }
+
+
+
+
+
+
+

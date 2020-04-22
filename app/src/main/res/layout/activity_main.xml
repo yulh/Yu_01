@@ -1,27 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/imageView_01"
+    <data>
+
+        <variable
+            name="mainActivity"
+            type="com.example.yu_01.MainActivity" />
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button_01"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="数据库操作" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button_02"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="网络请求操作" />
+            <FrameLayout
+                android:id="@+id/main_frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-</LinearLayout>
+            <com.example.yu_01.view.BottomBar
+                android:id="@+id/bottomBar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:id="@+id/imageView_01"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+            <Button
+                android:id="@+id/button_01"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:onClick="@{mainActivity.onClick}"
+                android:text="数据库操作" />
+
+            <Button
+                android:id="@+id/button_02"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:onClick="@{mainActivity.onClick}"
+                android:text="网络请求操作" />
+
+
+            <Button
+                android:id="@+id/button_03"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:onClick="@{mainActivity.onClick}"
+                android:text="登录" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
