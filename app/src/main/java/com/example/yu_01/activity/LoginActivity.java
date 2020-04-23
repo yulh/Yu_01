@@ -1,3 +1,4 @@
+//region Description
 package com.example.yu_01.activity;
 
 import android.os.Bundle;
@@ -27,3 +28,4 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(this,"111",Toast.LENGTH_SHORT).show();
     }
 }
+//endregion

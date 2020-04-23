@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        Log.e("111","ssss");
         Intent intent = null;
         switch (v.getId()) {
             case R.id.button_01:

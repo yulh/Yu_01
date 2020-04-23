@@ -1,20 +1,10 @@
-package com.example.yu_01.bean;
+package com.example.retrofitsample.bean;
 
-import java.io.Serializable;
+public class BaseBean<T> {
 
-public class BaseBean<T> implements Serializable {
-    private int id;
     private int status;
     private String msg;
     private T data;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getStatus() {
         return status;
