@@ -9,6 +9,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.example.retrofitsample.retrofit.RetrofitManager;
+import com.example.retrofitsample.utils.FileUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+    }
+
+
+    public void request() {
         Call<String> call = RetrofitManager.getApiService().getJsonData();
 
         call.enqueue(new Callback<String>() {
@@ -34,6 +39,5 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("yulh-onFailure", t.getMessage());
             }
         });
-
     }
 }

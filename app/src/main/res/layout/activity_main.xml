@@ -40,8 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageView_01"
@@ -69,6 +68,13 @@
                 android:layout_height="50dp"
                 android:onClick="@{mainActivity.onClick}"
                 android:text="登录" />
+
+            <Button
+                android:id="@+id/button_04"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:onClick="@{mainActivity.onClick}"
+                android:text="拍照" />
         </LinearLayout>
     </LinearLayout>
 </layout>

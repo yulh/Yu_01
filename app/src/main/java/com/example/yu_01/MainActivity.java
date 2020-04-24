@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.yu_01.activity.CameraActivity;
 import com.example.yu_01.activity.DbActivity;
 import com.example.yu_01.activity.GetAndPostActivity;
 import com.example.yu_01.activity.LoginActivity;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setMainActivity(this);
         initBottomBar();
 
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 展示的顶部Fragment
+     *
      * @param position
      */
     private void setFragmentPosition(int position) {
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment currentFragment = fragments.get(position);
         Fragment lastFragment = fragments.get(lastIndex);
         lastIndex = position;
-        ft.replace(R.id.main_frameLayout,currentFragment);
+        ft.replace(R.id.main_frameLayout, currentFragment);
 //        if (!currentFragment.isAdded()) {
 //            getSupportFragmentManager().beginTransaction().remove(currentFragment).commit();
 //            ft.add(R.id.main_frameLayout, currentFragment);
@@ -102,13 +104,17 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.button_04:
+                intent = new Intent(MainActivity.this, CameraActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
     /**
      * 加载图片
      */
-    private void loadImage(){
+    private void loadImage() {
         final ImageOptions imageOptions = new ImageOptions.Builder()
                 .setLoadingDrawableId(R.mipmap.ic_launcher)
                 .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
